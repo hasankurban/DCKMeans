@@ -32,7 +32,7 @@ int main(){
     // Declare variables
     int num_iterations = 100;
     double threshold = 0.001;
-    int num_clusters = 5;
+    int num_clusters = 10;
 
     // Read in the data
     auto t1 = std::chrono::high_resolution_clock::now();

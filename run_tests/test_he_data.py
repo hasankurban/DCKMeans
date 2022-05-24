@@ -16,7 +16,7 @@ Algo2: DCKMeans
 
 # Set parameters
 threshold = 0.001
-num_iterations = 100
+num_iterations = 1
 
 # file_list = ['test_data_case1.csv']
 file_list = ['test_100_2_3.csv']

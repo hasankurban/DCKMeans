@@ -61,20 +61,13 @@ Tdouble threshold, Tint num_iterations, Tint numCols){
     // print_2d_vector(centroids, centroids.size(), "Initial Centroids");
 
     // Assign data to nearest center
-    auto t1 = std::chrono::high_resolution_clock::now();
-
     calculate_dckm_distances(dataset, centroids, dist_matrix,
     num_clusters, assign_dict, cluster_radius);
-
-    auto t2 = std::chrono::high_resolution_clock::now();
-    auto temp1 = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-    cout << "Time for first center-point distance calc: " << temp1.count() << "\n";
 
     // Print dist_matrix
     // print_2d_vector(dist_matrix, 5, "Distance matrix");
     // print_vector(assigned_clusters, 5, "Assigned clusters");
     // print_2d_vector(cluster_size, 5, "Cluster Size and Radious");
-    // 
 
     auto cent_time = 0;
     auto ne_time = 0;
@@ -114,29 +107,27 @@ Tdouble threshold, Tint num_iterations, Tint numCols){
         auto t7 = std::chrono::high_resolution_clock::now();
         
         determine_data_expression(dataset, new_centroids, 
-        neighbors, assign_dict, affine_vectors, 
-        mid_points, he_data, center_dist_mat);
+        neighbors, assign_dict, dist_matrix, cluster_radius,
+        affine_vectors, mid_points, he_data);
 
         auto t8 = std::chrono::high_resolution_clock::now();
         he_time = he_time + std::chrono::duration_cast<std::chrono::milliseconds>(t8 - t7).count();
         
         // print_dict(assign_dict, assign_dict.size(), "Assignment Dictionary");
-        // cout << "Counter: "<< loop_counter << "\tNo. HE Data: " << he_data.size() << "\n";
+        // cout << "No. HE Data: " << he_data.size() << "\n";
         // print_2d_vector(he_data, he_data.size(), "HE Data");
 
         // Re-calculate distances
-        // auto t9 = std::chrono::high_resolution_clock::now();
+        auto t9 = std::chrono::high_resolution_clock::now();
         
         calculate_HE_distances(dataset, new_centroids, dist_matrix,
                                         assign_dict,
                                         cluster_radius, he_data);
         
-        // auto t10 = std::chrono::high_resolution_clock::now();
-        // dist_time = dist_time + std::chrono::duration_cast<std::chrono::milliseconds>(t10 - t9).count();
+        auto t10 = std::chrono::high_resolution_clock::now();
+        dist_time = dist_time + std::chrono::duration_cast<std::chrono::milliseconds>(t10 - t9).count();
 
         he_data.clear();
-        // print_2d_vector(he_data, he_data.size(), "After clearing: HE Data");
-        // neighbors.clear();
 
         // Print for testing
         // print_2d_vector(cluster_size, cluster_size.size(), "After HE calc: Cluster Sizes");

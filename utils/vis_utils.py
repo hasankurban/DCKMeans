@@ -181,6 +181,8 @@ def get_midpoints_np(new_centroids, assign_dict, distances, dist_mat):
         dist_mat[:, k] = np.sqrt(np.sum(np.square(np.subtract(new_centroids, new_centroids[k])), 1))
 
     dist_mat = np.divide(dist_mat, 2)
+    print(dist_mat)
+    print(new_centroids)
 
     for i in range(len(new_centroids)):
 
@@ -215,7 +217,7 @@ def find_all_points(dataset, centroids_neighbor, new_centroids, assign_dict):
                 point_sign = find_sign_by_product(mid_point, center2, test_data)
                 same_sign = np.where(point_sign > 0)[0]
 
-                if len(same_sign)>0:
+                if len(same_sign) > 0:
                     he_data += list(temp_list_1[same_sign])
 
     return np.unique(he_data)
