@@ -260,12 +260,15 @@ def find_all_points_neighbor(dataset, centroids_neighbor, new_centroids, assign_
 
                 # print("Center-1: ", curr_cluster, " other center: ", ot_cen,
                 #       " No. HE points: ", len(same_sign))
-
+                # for i in he_data_indices:
+                # if i == 67:
+                #         print("Center:1 ", center1)
+                #         print("Center-2: ", center2)
+                #         prin
                 if len(same_sign) > 0:
                     he_data_indices += temp_list_1[same_sign].tolist()
 
-            # for i in he_data_indices:
-            #     print("Point: ",i, "Data-midpoint vector: ", dataset[i]-mid_point, "\ncenter-midpoint vector: ", center2-mid_point)
+            # t("Point: ", i, "midpoint: ", mid_point, "\n data: ", dataset[i])
 
         he_data[curr_cluster] = np.unique(he_data_indices).tolist()
 

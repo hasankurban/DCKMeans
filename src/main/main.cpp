@@ -34,7 +34,6 @@ int main(){
     double threshold = 0.001;
     int num_clusters = 5;
 
-
     // Read in the data
     auto t1 = std::chrono::high_resolution_clock::now();
     
@@ -43,11 +42,13 @@ int main(){
     auto t2 = std::chrono::high_resolution_clock::now();
     auto file_int = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
     cout << "File reading: " << file_int.count() << " MS\n";
-
+    
     int numRows = p.first-1;
     int numCols = p.second-1;
 
-    vector<vector<double> > km_centers(num_clusters, vector<double>(numCols));
+    // cout << "hhe " << numCols << "\n";
+
+    vector<vector<double> > km_centers(num_clusters, vector<double>(numCols, 0.0));
     vector<int> km_assign(dataset.size());
     int km_iter = 0;
     
@@ -56,10 +57,8 @@ int main(){
     // print_vector(labels, 5, "Labels");
 
     // auto t3 = std::chrono::high_resolution_clock::now();
-    
     // km_iter = kmeans(dataset, num_clusters, threshold, num_iterations, 
     // numRows, numCols, km_centers, km_assign);
-    
     // auto t4 = std::chrono::high_resolution_clock::now();
     // auto km_int = std::chrono::duration_cast<std::chrono::milliseconds>(t4 - t3);
     // std::cout << km_int.count() << "milliseconds\n";

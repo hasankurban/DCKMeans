@@ -31,6 +31,7 @@ int limit = 0;
 
 for (int i =0; i< data.size(); i++){
     if (limit < num_records){
+        cout << i << ": ";
         for (int j=0; j<data[i].size(); j++)
             cout << data[i][j] << "\t";
         }
