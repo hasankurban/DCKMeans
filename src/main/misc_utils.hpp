@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <unordered_set>
 #pragma once
 
 using namespace std;
@@ -19,6 +20,10 @@ class print_utils{
         template <typename T1>
         void print_map(map<T1, vector<T1> > &assign_dict, int num_records, 
         string dataname);
+
+        template <typename T1>
+        void print_dict(vector<unordered_set<T1> > &assign_dict, 
+        int num_records, string message);
 };
 
 
@@ -78,15 +83,22 @@ for(map<int, vector<int> >::iterator ii=assign_dict.begin(); ii!=assign_dict.end
    }
 }
 
-  //cout << "Printing first five records" << "\n";
-    // int limit = 5;
-    // int i=0;
-    // for(auto row: dataset){
-    //     if (i < limit)
-    //         for (auto col: row)
-    //             cout << col << "\t" ;
-    //     else
-    //         break;
-    //     cout << labels[i] << "\n";
-    //     i++;
-    // }
+
+template <typename T1>
+void print_dict(vector<unordered_set<T1> > &assign_dict, int num_records, string message){
+
+cout << "Printing: " << message << " \n" ;
+int limit = 0;
+
+for (int i=0; i< assign_dict.size(); i++){
+    
+    cout << i << ": " << assign_dict[i].size() << ": " ;
+
+//     for(unordered_set<int>::iterator ii=assign_dict[i].begin(); 
+//     ii!=assign_dict[i].end(); ++ii){
+//         cout << (*ii) << "\t";
+//    }
+   cout << "\n";
+
+}
+}

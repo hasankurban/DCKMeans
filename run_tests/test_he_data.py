@@ -36,7 +36,7 @@ file_path = os.path.join(DATA_PATH, "benchmark", "clustering_data")
 file_path = os.path.join(DATA_PATH, "real_data")
 file_path = os.path.join(DATA_PATH, "sample_data")
 
-num_clusters = 7
+num_clusters = 3
 seed = 12
 
 for data_file in file_list:
@@ -73,7 +73,7 @@ for data_file in file_list:
     # print(assign1[np.where(assign1 != assign2)[0]], assign2[np.where(assign1 != assign2)[0]])
 
     # print(km_TraningTime, kmlb_TraningTime)
-    print(kmlb_centroids)
-    print(kmlb_TraningTime)
+    # print(km_TraningTime)
+    # print(kmlb_TraningTime)
     # print("Dev: ", round(np.sqrt(np.mean(np.square(km_centroids - kmlb_centroids))), 3))
     # print(km_centroids)

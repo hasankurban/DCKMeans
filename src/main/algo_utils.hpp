@@ -16,8 +16,7 @@ class algorithm_utils{
     template <typename T1, typename T2>
     void calculate_distances(const vector<vector<T1> > &dataset, 
     vector<vector<T1> > &centroids, vector<vector<T1> > &dist_mat,
-    T2 num_clusters, vector<T2> &assigned_clusters, 
-    vector<vector<T1> > &cluster_size);
+    T2 num_clusters, vector<T2> &assigned_clusters, vector<T2> &cluster_size);
 
     template <typename T1>
     double calc_euclidean(const vector<T1> &, const vector<T1> &);
@@ -25,7 +24,7 @@ class algorithm_utils{
     template <typename T1, typename T2>
     void update_centroids(vector<vector <T1> > &dataset, 
     vector<vector<T1> > &new_centroids, vector<T2> &assigned_clusters, 
-    vector<vector<T1> > &cluster_size, T2 numCols);
+    vector<T2> &cluster_size, T2 numCols);
 
     template <typename T1>
     bool check_convergence(vector<vector <T1> > &, vector<vector <T1> > &, T1);
@@ -80,14 +79,14 @@ const vector<T1> &center){
 template <typename T1, typename T2>
 void algorithm_utils::calculate_distances(const vector<vector<T1> > &dataset, 
 vector<vector<T1> > &centroids, vector<vector<T1> > &dist_mat,
-T2 num_clusters, vector<T2> &assigned_clusters, vector<vector<T1> > &cluster_size){
+T2 num_clusters, vector<T2> &assigned_clusters, vector<T2> &cluster_size){
 
     T2 current_center = 0;
     vector<T1> temp_dist (num_clusters);
     double temp = 0.0;
 
     assigned_clusters.assign(assigned_clusters.size(), 0);
-    algorithm_utils::reinit(cluster_size);
+    cluster_size.assign(cluster_size.size(), 0);
 
     // Calculate the distance of points to nearest center
     for (int i=0; i < dataset.size(); i++){
@@ -98,7 +97,7 @@ T2 num_clusters, vector<T2> &assigned_clusters, vector<vector<T1> > &cluster_siz
             temp = calc_euclidean(dataset[i], centroids[j]);
             temp_dist[j] = temp;
             
-            if (temp < shortestDist2){
+            if (temp <= shortestDist2){
                 shortestDist2 = temp;
                 current_center = j;
             }
@@ -106,13 +105,7 @@ T2 num_clusters, vector<T2> &assigned_clusters, vector<vector<T1> > &cluster_siz
         
         dist_mat[i] = temp_dist;
         assigned_clusters[i] = current_center;
-
-        // Increase the size of the cluster
-        cluster_size[current_center][0] = cluster_size[current_center][0] + 1;
-        
-        // Store the max so far
-        if (shortestDist2 > cluster_size[current_center][1])
-            cluster_size[current_center][1] = shortestDist2;
+        cluster_size[current_center] = cluster_size[current_center] + 1;      
     }
 }
 
@@ -120,7 +113,7 @@ T2 num_clusters, vector<T2> &assigned_clusters, vector<vector<T1> > &cluster_siz
 template <typename T1, typename T2>
 void algorithm_utils::update_centroids(vector<vector <T1> > &dataset, 
 vector<vector<T1> > &new_centroids, vector<T2> &assigned_clusters, 
-vector<vector<T1> > &cluster_size, T2 numCols){
+vector<T2> &cluster_size, T2 numCols){
 
     int point_index = 0; 
     int curr_center = 0;
@@ -135,7 +128,7 @@ vector<vector<T1> > &cluster_size, T2 numCols){
     }
 
     for(int i=0; i<new_centroids.size();i++){
-        k = cluster_size[i][0];
+        k = cluster_size[i];
 
         for (int j = 0; j < new_centroids[i].size(); j++){
             if (k > 0)

@@ -25,7 +25,7 @@ vector<Tint> &assigned_clusters){
     Tint loop_counter = 0;
     vector<vector<Tdouble> > centroids(num_clusters, vector<Tdouble>(numCols));
     vector<vector <Tdouble> > dist_matrix(dataset.size(), vector<Tdouble>(num_clusters));
-    vector<vector<Tdouble> > cluster_size(num_clusters, vector<Tdouble>(2));   
+    vector<Tint> cluster_size(num_clusters);   
 
     // double centroids[num_clusters][numCols];
     // double dist_matrix[dataset.size()][num_clusters];
@@ -65,9 +65,8 @@ vector<Tint> &assigned_clusters){
     int dist_int = 0;
 
     while (loop_counter < num_iterations){
-
-        loop_counter++;
         
+        loop_counter++;
         // print_map(assign_dict, 5, "Before Erasing");
 
         auto t5 = std::chrono::high_resolution_clock::now();
@@ -107,7 +106,7 @@ vector<Tint> &assigned_clusters){
         
         // reset centroids
         alg_utils.reinit(new_centroids);
-        
+    
         // break;
     }
 
